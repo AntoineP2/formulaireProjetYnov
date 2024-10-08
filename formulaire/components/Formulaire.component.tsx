@@ -4,6 +4,7 @@ import { subYears } from "date-fns";
 import { use, useEffect, useState } from "react";
 import { FaBirthdayCake, FaUser } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
+import { toast, Toaster } from "sonner";
 
 
 const Formulaire = () => {
@@ -111,7 +112,7 @@ const Formulaire = () => {
                             disabled={error}
                             type="button"
                             className="btn btn-primary w-full"
-                            onClick={() => console.log(name, surName, startDate)}
+                            onClick={() => toast.success("Inscription réussie.")}
                         >
                             Valider
                         </button>
