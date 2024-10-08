@@ -12,10 +12,10 @@ const Formulaire = () => {
     const [surName, setSurName] = useState<string>("");
     const [startDate, setStartDate] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
-    const [adult, setAdult] = useState<boolean>(false);
+    const [adult, setAdult] = useState<boolean>(true);
 
     useEffect(() => {
-        if (name && surName && email && adult && /^[a-zA-ZÀ-ÿ\s'-]+$/.test(name) && /^[a-zA-ZÀ-ÿ\s'-]+$/.test(surName) && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        if (name && surName && email && adult && startDate && /^[a-zA-ZÀ-ÿ\s'-]+$/.test(name) && /^[a-zA-ZÀ-ÿ\s'-]+$/.test(surName) && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
             setError(false);
         } else {
             setError(true);
