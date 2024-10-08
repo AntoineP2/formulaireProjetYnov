@@ -1,10 +1,10 @@
 "use client"
 
-import { subYears } from "date-fns";
+import { set, subYears } from "date-fns";
 import { use, useEffect, useState } from "react";
 import { FaBirthdayCake, FaUser } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 
 
 const Formulaire = () => {
@@ -31,6 +31,14 @@ const Formulaire = () => {
             setAdult(birthDayDate <= adultDate);
         }
     }, [startDate])
+
+    const handleSubmit = () => {
+        toast.success("Inscription réussie !")
+        setName("");
+        setEmail("");
+        setSurName("");
+        setStartDate("");
+    }
 
 
     return (
@@ -112,7 +120,7 @@ const Formulaire = () => {
                             disabled={error}
                             type="button"
                             className="btn btn-primary w-full"
-                            onClick={() => toast.success("Inscription réussie.")}
+                            onClick={handleSubmit}
                         >
                             Valider
                         </button>
