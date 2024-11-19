@@ -1,9 +1,9 @@
 "use client"
 
-import { set, subYears } from "date-fns";
-import { use, useEffect, useState } from "react";
+import { subYears } from "date-fns";
+import { useEffect, useState } from "react";
 import { FaBirthdayCake, FaUser } from "react-icons/fa";
-import { IoMdMail } from "react-icons/io";
+import { IoMdHome, IoMdMail, IoMdPin } from "react-icons/io";
 import { toast } from "sonner";
 
 
@@ -12,16 +12,18 @@ const Formulaire = () => {
     const [email, setEmail] = useState<string>("");
     const [surName, setSurName] = useState<string>("");
     const [startDate, setStartDate] = useState<string>("");
+    const [adresse, setAdresse] = useState<string>("");
+    const [codePostal, setCodePostal] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
     const [adult, setAdult] = useState<boolean>(true);
 
     useEffect(() => {
-        if (name && surName && email && adult && startDate && /^[a-zA-ZÀ-ÿ\s'-]+$/.test(name) && /^[a-zA-ZÀ-ÿ\s'-]+$/.test(surName) && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        if (name && adresse && codePostal && surName && email && adult && startDate && /^[a-zA-ZÀ-ÿ\s'-]+$/.test(name) && /^[a-zA-ZÀ-ÿ\s'-]+$/.test(surName) && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
             setError(false);
         } else {
             setError(true);
         }
-    }, [name, email, surName, adult]);
+    }, [name, email, surName, adult, adresse, codePostal, startDate]);
 
     useEffect(() => {
         if (startDate) {
@@ -38,6 +40,8 @@ const Formulaire = () => {
         setEmail("");
         setSurName("");
         setStartDate("");
+        setAdresse("");
+        setCodePostal("");
     }
 
 
@@ -112,7 +116,38 @@ const Formulaire = () => {
                                     {startDate && !adult && "Vous devez être majeur pour vous inscrire."}
                                 </p>
                             </div>
-                            {/* HOURLY */}
+                            {/* Adresse */}
+                            <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
+                                <div className="text-accent"><IoMdHome size={15} /></div>
+                                <input
+                                    type="text"
+                                    placeholder="Adresse"
+                                    required={true}
+                                    maxLength={100}
+                                    value={adresse}
+                                    onChange={(event) => setAdresse(event.target.value)}
+                                />
+                            </label>
+
+                            {/* Code Postal */}
+                            <label className="input input-bordered input-sm input-primary bg-base-300 flex items-center gap-2">
+                                <div className="text-accent"><IoMdPin size={15} /></div>
+                                <input
+                                    type="text"
+                                    placeholder="Code postal"
+                                    required={true}
+                                    maxLength={5}
+                                    pattern="\d{5}"
+                                    title="Le code postal doit être composé de 5 chiffres"
+                                    value={codePostal}
+                                    onChange={(event) => {
+                                        const value = event.target.value;
+                                        if (/^\d{0,5}$/.test(value)) { // Permet uniquement les chiffres et un max de 5 caractères
+                                            setCodePostal(value);
+                                        }
+                                    }}
+                                />
+                            </label>
                         </div>
                     </div>
                     <div>
