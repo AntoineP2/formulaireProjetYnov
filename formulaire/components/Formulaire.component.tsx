@@ -1,5 +1,6 @@
 "use client"
 
+import { areFieldsValid } from "@/utils/validation";
 import { subYears } from "date-fns";
 import { useEffect, useState } from "react";
 import { FaBirthdayCake, FaUser } from "react-icons/fa";
@@ -18,12 +19,12 @@ const Formulaire = () => {
     const [adult, setAdult] = useState<boolean>(true);
 
     useEffect(() => {
-        if (name && adresse && codePostal && surName && email && adult && startDate && /^[a-zA-ZÀ-ÿ\s'-]+$/.test(name) && /^[a-zA-ZÀ-ÿ\s'-]+$/.test(surName) && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        if (areFieldsValid(name, adresse, codePostal, surName, email, adult, startDate)) {
             setError(false);
         } else {
             setError(true);
         }
-    }, [name, email, surName, adult, adresse, codePostal, startDate]);
+    }, [name, email, surName, adult, adresse, codePostal, startDate, setError]);
 
     useEffect(() => {
         if (startDate) {
